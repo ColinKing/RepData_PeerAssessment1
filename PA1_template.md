@@ -1,4 +1,9 @@
-# Reproducible Research: Peer Assessment 1
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 
 
 ## Loading and preprocessing the data
@@ -29,7 +34,7 @@ data.daysums <- data.frame(totalsteps, dates)
 hist(data.daysums$totalsteps, breaks = 30, main="Histogram of Total Steps per Day", xlab = "Total Steps", col = "lightgreen")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
 The mean number of steps taken each day:
 
@@ -61,7 +66,7 @@ data.intervalsums <- aggregate(list(steps = data$steps), by = list(intervals = d
 plot(data.intervalsums$intervals, data.intervalsums$steps, type = "l", main = "Average Daily Activity based on time of day", xlab = "Intervals", ylab = "Average Steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
 
 Calculate where the maximum average number of steps per interval occurs at:
 
@@ -104,7 +109,7 @@ data.filledsums <- aggregate(list(steps = data.filled$steps), by = list(day = da
 hist(data.filledsums$steps, breaks = 30, main="Histogram of Total Steps per Day with Missing Info Replaced", xlab = "Total Steps", col = "lightgreen")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-8-1.png) 
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png) 
 
 The mean number of steps taken each day:
 
@@ -162,4 +167,4 @@ library(lattice)
 xyplot(steps ~  interval | weekday, data = data.weekday, type = "l", layout = c(1, 2), main = "Weekend versus Weekday Step Counts", ylab = "Steps", xlab = "Intervals")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-12-1.png) 
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png) 
