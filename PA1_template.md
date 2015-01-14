@@ -1,14 +1,10 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
 
-```{r cache=TRUE}
+
+```r
 data <- read.csv("activity.csv")
 
 # Remove NAs
@@ -28,44 +24,71 @@ data.daysums <- data.frame(totalsteps, dates)
 
 ## What is mean total number of steps taken per day?
 
-```{r}
+
+```r
 hist(data.daysums$totalsteps, breaks = 30, main="Histogram of Total Steps per Day", xlab = "Total Steps", col = "lightgreen")
 ```
 
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+
 The mean number of steps taken each day:
 
-```{r}
+
+```r
 mean(data.daysums$totalsteps)
+```
+
+```
+## [1] 9354.23
 ```
 
 The median number of steps taken each day:
 
-```{r}
+
+```r
 median(data.daysums$totalsteps)
+```
+
+```
+## [1] 10395
 ```
 
 ## What is the average daily activity pattern?
 
-```{r}
+
+```r
 data.intervalsums <- aggregate(list(steps = data$steps), by = list(intervals = data$interval), FUN = mean, na.rm = TRUE)
 plot(data.intervalsums$intervals, data.intervalsums$steps, type = "l", main = "Average Daily Activity based on time of day", xlab = "Intervals", ylab = "Average Steps")
 ```
 
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
+
 Calculate where the maximum average number of steps per interval occurs at:
 
-```{r}
+
+```r
 data.intervalsums$intervals[data.intervalsums$steps == max(data.intervalsums$steps)]
+```
+
+```
+## [1] 835
 ```
 
 ## Imputing missing values
 
 Calculate the number of NAs in the data set
 
-```{r}
+
+```r
 length(which(is.na(data$steps)))
 ```
 
-```{r}
+```
+## [1] 2304
+```
+
+
+```r
 # Replace the NA values
 data.filled <- data
 index <- 1
@@ -79,19 +102,30 @@ while(index <= nrow(data)) {
 data.filledsums <- aggregate(list(steps = data.filled$steps), by = list(day = data.filled$date), FUN = sum, na.rm = TRUE)
 
 hist(data.filledsums$steps, breaks = 30, main="Histogram of Total Steps per Day with Missing Info Replaced", xlab = "Total Steps", col = "lightgreen")
-
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-8-1.png) 
 
 The mean number of steps taken each day:
 
-```{r}
+
+```r
 mean(data.filledsums$steps)
+```
+
+```
+## [1] 10766.19
 ```
 
 The median number of steps taken each day:
 
-```{r}
+
+```r
 median(data.filledsums$steps)
+```
+
+```
+## [1] 10766.19
 ```
 
 This shows that the mean and median both rose in value after the NA values were replaced with the mean number of steps for the given time interval.
@@ -100,7 +134,8 @@ This shows that the mean and median both rose in value after the NA values were 
 
 Determine if each day is a weekday and store it in a column of the dataset
 
-```{r cache=TRUE}
+
+```r
 # Returns either "weekday" or "weekend" from a string date that is passed in
 weekday <- function(date) {
   posix.date <- as.POSIXlt(date)
@@ -121,7 +156,10 @@ while(index <= nrow(data)) {
 Now let's graph a panel plot to compare weekend and weekday steps over time
 
 
-```{r} 
+
+```r
 library(lattice)
 xyplot(steps ~  interval | weekday, data = data.weekday, type = "l", layout = c(1, 2), main = "Weekend versus Weekday Step Counts", ylab = "Steps", xlab = "Intervals")
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-12-1.png) 
