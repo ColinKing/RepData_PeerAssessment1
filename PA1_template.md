@@ -81,6 +81,10 @@ data.intervalsums$intervals[data.intervalsums$steps == max(data.intervalsums$ste
 
 ## Imputing missing values
 
+#### How to replace missing values 
+
+We can replace missing data (NAs) with the average number of steps for a specific interval. For example, if at 6:30, the number of steps was NA, we would replace the NA with the average number of steps across all days at 6:30.
+
 Calculate the number of NAs in the data set
 
 

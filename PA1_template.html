@@ -261,6 +261,10 @@ plot(data.intervalsums$intervals, data.intervalsums$steps, type = &quot;l&quot;,
 
 <h2>Imputing missing values</h2>
 
+<h4>How to replace missing values</h4>
+
+<p>We can replace missing data (NAs) with the average number of steps for a specific interval. For example, if at 6:30, the number of steps was NA, we would replace the NA with the average number of steps across all days at 6:30.</p>
+
 <p>Calculate the number of NAs in the data set</p>
 
 <pre><code class="r">length(which(is.na(data$steps)))
